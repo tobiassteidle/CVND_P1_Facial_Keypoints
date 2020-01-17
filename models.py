@@ -13,10 +13,8 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
 
-        # Input layer
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=(4, 4))
-
         # Conv Layers
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=(4, 4))
         self.conv2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3))
         self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(2, 2))
         self.conv4 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(1, 1))
@@ -53,12 +51,12 @@ class Net(nn.Module):
         # Flatten
         x = x.view(x.size(0), -1)
 
-        x = self.fc1(F.elu(x))
+        x = F.elu(self.fc1(x))
         x = self.drop5(x)
 
-        x = self.fc2(F.elu(x))
+        x = F.elu(self.fc2(x))
         x = self.drop6(x)
 
-        x = self.fc3(F.elu(x))
+        x = self.fc3(x)
 
         return x
